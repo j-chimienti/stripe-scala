@@ -1,8 +1,5 @@
 package org.mdedetrich.stripe
 
-import java.time.temporal.ChronoField
-import java.time.{Instant, OffsetDateTime, ZoneOffset}
-
 import akka.http.scaladsl.HttpExt
 import akka.http.scaladsl.model.Uri.Query
 import akka.http.scaladsl.model._
@@ -10,16 +7,18 @@ import akka.http.scaladsl.model.headers._
 import akka.http.scaladsl.unmarshalling.Unmarshal
 import akka.stream.Materializer
 import com.typesafe.scalalogging.Logger
-import de.knutwalker.akka.http.support.CirceHttpSupport._
-import de.knutwalker.akka.stream.support.CirceStreamSupport
+import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport
 import io.circe.syntax._
 import io.circe.{Errors => _, _}
+import org.mdedetrich.akka.stream.support.CirceStreamSupport
 import org.mdedetrich.stripe.v1.Errors.{Error, StripeServerError, UnhandledServerError}
 
+import java.time.temporal.ChronoField
+import java.time.{Instant, OffsetDateTime, ZoneOffset}
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util._
 
-package object v1 {
+package object v1 extends FailFastCirceSupport {
 
   object defaults {
 
